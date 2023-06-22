@@ -1,0 +1,30 @@
+version: "3"
+services:
+  app:
+    build: .
+    ports:
+      - 5000:5000
+    environment:
+      MYSQL_HOST: mysql-server
+      MYSQL_USER: root
+      MYSQL_PASSWORD: deneme123
+      MYSQL_DB: reddapp
+      REDDIT_CLIENT_ID: VIFYR9sQlpptzhBx3xThxg
+      REDDIT_CLIENT_SECRET: TOC4oEUz0H40AC57H4g2dAwwOaRx-A
+      REDDIT_USERNAME: can_59
+      REDDIT_PASSWORD: deneme123
+    depends_on:
+      - mysql
+    healthcheck:
+      test: ["CMD", "mysqladmin", "ping", "-h", "mysql-server"]
+      interval: 10s
+      timeout: 5s
+      retries: 5
+
+  mysql:
+    image: mysql:8
+    ports:
+      3306:3306
+    environment:
+      MYSQL_ROOT_PASSWORD: deneme123
+      MYSQL_DATABASE: reddapp
